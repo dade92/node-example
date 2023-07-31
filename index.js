@@ -19,11 +19,7 @@ app.get('/users', (req, res) => {
 });
 
 app.post('/addUser', (req, res) => {
-    users.push({
-        id: parseInt(req.body.id),
-        name: req.body.name,
-        email: req.body.email
-    });
+    users.push(req.body);
 
     return res.sendStatus(204);
 
