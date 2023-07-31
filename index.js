@@ -18,6 +18,17 @@ app.get('/users', (req, res) => {
     res.json(users);
 });
 
+app.post('/addUser', (req, res) => {
+    users.push({
+        id: parseInt(req.body.id),
+        name: req.body.name,
+        email: req.body.email
+    });
+
+    return res.sendStatus(204);
+
+});
+
 app.get('/findUser/:id', (req, res) => {
     let user = users.filter((u) => u.id === parseInt(req.params.id));
 
