@@ -1,7 +1,8 @@
 const express = require('express');
-let users = require("./Users");
+const users = require("./Users");
+const { findUser } = require('./FindUser');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 app.use(express.json());
@@ -26,10 +27,10 @@ app.post('/addUser', (req, res) => {
 });
 
 app.get('/findUser/:id', (req, res) => {
-    let user = users.filter((u) => u.id === parseInt(req.params.id));
+    let user = findUser(req.params.id, users);
 
-    if(user[0] !== undefined) {
-        res.send(user[0]);
+    if(user !== undefined) {
+        res.send(user);
     } else {
         res.sendStatus(404);
     }
