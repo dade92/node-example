@@ -1,4 +1,5 @@
-const { findUser } = require("./FindUser")
+import {findUser} from "./FindUser.js";
+import expect from "expect";
 
 describe('FindUser', () => {
     it('finds the user and returns it', () => {
