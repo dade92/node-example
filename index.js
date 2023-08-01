@@ -1,6 +1,7 @@
 const express = require('express');
 const users = require("./Users");
 const { findUser } = require('./FindUser');
+const { fetchUsers } = require('./FetchGithubUsers');
 
 const PORT = process.env.PORT || 8080;
 
@@ -24,6 +25,10 @@ app.post('/addUser', (req, res) => {
 
     return res.sendStatus(204);
 
+});
+
+app.get('/githubUsers', (req, res) => {
+    res.json(fetchUsers());
 });
 
 app.get('/findUser/:id', (req, res) => {
