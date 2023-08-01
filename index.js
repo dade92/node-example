@@ -1,12 +1,12 @@
-const express = require('express');
-const users = require("./Users");
-const { findUser } = require('./FindUser');
-const { fetchUsers } = require('./FetchGithubUsers');
+import express, { json } from 'express';
+import {users} from "./Users.js";
+import { findUser } from './FindUser.js';
+import { fetchUsers } from './FetchGithubUsers.js';
 
 const PORT = process.env.PORT || 8080;
 
 const app = express();
-app.use(express.json());
+app.use(json());
 
 app.get('/status', (request, response) => {
     const status = {
@@ -27,8 +27,8 @@ app.post('/addUser', (req, res) => {
 
 });
 
-app.get('/githubUsers', (req, res) => {
-    res.json(fetchUsers());
+app.get('/githubUsers', async (req, res) => {
+    res.json(await fetchUsers());
 });
 
 app.get('/findUser/:id', (req, res) => {

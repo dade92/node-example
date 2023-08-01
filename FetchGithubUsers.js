@@ -1,8 +1,8 @@
-const { fetch } = require('node-fetch');
+import fetch from 'node-fetch';
 
-const fetchUsers = async () => {
+export const fetchUsers = async () => {
     const response = await fetch('https://api.github.com/users/github');
-    return response.json();
+    const body = await response.json();
+    console.log(body);
+    return body;
 }
-
-module.exports = {fetchUsers};

@@ -1,4 +1,4 @@
-findUser = (id, users) => {
+export const findUser = (id, users) => {
     let user = users.filter((u) => u.id === parseInt(id));
 
     if(user[0] !== undefined) {
@@ -7,5 +7,3 @@ findUser = (id, users) => {
         return undefined
     }
 }
-
-module.exports = {findUser};
