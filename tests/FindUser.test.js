@@ -1,4 +1,4 @@
-import {findUser} from "./FindUser.js";
+import {findUser} from "../src/FindUser.js";
 import expect from "expect";
 
 describe('FindUser', () => {
