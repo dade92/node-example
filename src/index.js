@@ -1,7 +1,7 @@
 import express, {json} from 'express';
 import {adaptBody, users} from "./Users.js";
 import {findUser} from './FindUser.js';
-import {fetchUsers} from './FetchGithubUsers.js';
+import {retrieveGithubUsers} from './FetchGithubUsers.js';
 
 const PORT = process.env.PORT || 8080;
 
@@ -28,18 +28,22 @@ app.post('/addUser', (req, res) => {
 });
 
 app.get('/githubUsers', async (req, res) => {
-    res.json(await fetchUsers());
+    retrieveGithubUsers()
+        .then(users => res.json(users))
+        .catch(() => res.sendStatus(500))
 });
 
 app.get('/findUser/:id', (req, res) => {
     let user = findUser(req.params.id, users);
 
-    if (user !== undefined) {
-        res.send(user);
-    } else {
+    if (notFound(user)) {
         res.sendStatus(404);
+    } else {
+        res.send(user);
     }
 });
+
+const notFound = (user) => user === undefined
 
 app.listen(PORT, () => {
     console.log("Server Listening on PORT:", PORT);
