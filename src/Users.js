@@ -1,3 +1,14 @@
+export let idCount = 4
+
+export const adaptBody = ({name, email}) => {
+    idCount = idCount + 1
+    return {
+        id: idCount,
+        name: name,
+        email: email
+    }
+}
+
 export const users = [
     {
       id: 1,

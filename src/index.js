@@ -1,7 +1,7 @@
-import express, { json } from 'express';
-import {users} from "./Users.js";
-import { findUser } from './FindUser.js';
-import { fetchUsers } from './FetchGithubUsers.js';
+import express, {json} from 'express';
+import {adaptBody, users} from "./Users.js";
+import {findUser} from './FindUser.js';
+import {fetchUsers} from './FetchGithubUsers.js';
 
 const PORT = process.env.PORT || 8080;
 
@@ -21,7 +21,7 @@ app.get('/users', (req, res) => {
 });
 
 app.post('/addUser', (req, res) => {
-    users.push(req.body);
+    users.push(adaptBody(req.body));
 
     return res.sendStatus(204);
 
@@ -34,7 +34,7 @@ app.get('/githubUsers', async (req, res) => {
 app.get('/findUser/:id', (req, res) => {
     let user = findUser(req.params.id, users);
 
-    if(user !== undefined) {
+    if (user !== undefined) {
         res.send(user);
     } else {
         res.sendStatus(404);
