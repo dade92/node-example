@@ -4,6 +4,8 @@ const uri = "mongodb://root:password@localhost:27017/test?authSource=admin";
 
 const client = new MongoClient(uri);
 
+const customerClient = client.db('test').collection('mongocustomer');
+
 export const initConnection = async () => {
     try {
         await client.connect();
@@ -18,7 +20,7 @@ export const initConnection = async () => {
 export const query = async (name) => {
     const query = {name: name};
 
-    const result = await client.db('test').collection('mongocustomer').findOne(query);
+    const result = await customerClient.findOne(query);
 
     if (result) {
         console.log(`Found one user with name ${name}:`);
@@ -27,6 +29,13 @@ export const query = async (name) => {
         console.log(`No users found`);
     }
     return result
+}
+
+export const insert = async (customer) => {
+    await customerClient.insertOne(customer, (err, result) => {
+        if (err) throw err;
+        console.log("1 document inserted");
+    })
 }
 
 const listDatabases = async (client) => {

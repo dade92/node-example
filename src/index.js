@@ -1,8 +1,8 @@
 import express, {json} from 'express';
-import {adaptBody, users} from "./Users.js";
+import {adaptBody, adaptBodyForDB, users} from "./Users.js";
 import {findUser} from './FindUser.js';
 import {retrieveGithubUsers} from './FetchGithubUsers.js';
-import {initConnection, query} from "./MongoDB.js";
+import {initConnection, insert, query} from "./MongoDB.js";
 
 const PORT = process.env.PORT || 8080;
 
@@ -23,9 +23,9 @@ app.get('/users', (req, res) => {
 
 app.post('/addUser', (req, res) => {
     users.push(adaptBody(req.body));
-
-    return res.sendStatus(204);
-
+    return insert(adaptBodyForDB(req.body))
+        .then(() => res.sendStatus(204))
+        .catch(() => res.sendStatus(500));
 });
 
 app.get('/githubUsers', async (req, res) => {

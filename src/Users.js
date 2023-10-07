@@ -9,6 +9,14 @@ export const adaptBody = ({name, email}) => {
     }
 }
 
+export const adaptBodyForDB = ({name, email, age}) => {
+    return {
+        name: name,
+        age: age
+    }
+}
+
+
 export const users = [
     {
       id: 1,
