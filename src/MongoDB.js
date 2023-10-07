@@ -11,12 +11,12 @@ export const initConnection = async () => {
         await listDatabases(client);
     } catch (e) {
         console.error(e);
+        throw e;
     }
-
 }
 
 export const query = async (name) => {
-    var query = {name: name}
+    const query = {name: name};
 
     const result = await client.db('test').collection('mongocustomer').findOne(query);
 
@@ -26,6 +26,7 @@ export const query = async (name) => {
     } else {
         console.log(`No users found`);
     }
+    return result
 }
 
 const listDatabases = async (client) => {

@@ -44,6 +44,16 @@ app.get('/findUser/:id', (req, res) => {
     }
 });
 
+app.get('/findUser', async (req, res) => {
+    let user = await query(req.query.name)
+
+    if (notFound(user)) {
+        res.sendStatus(404);
+    } else {
+        res.send(user);
+    }
+});
+
 app.get('/databases', (req, res) => {
     initConnection();
 

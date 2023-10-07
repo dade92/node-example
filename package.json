@@ -7,15 +7,16 @@
   "scripts": {
     "test": "jest --passWithNoTests --silent --coverage",
     "dev": "node .",
-    "start": "node ./src/index.js"
+    "start": "nodemon ./src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "mongodb": "^6.1.0",
     "node-fetch": "^3.3.2",
-    "mongodb": "^6.1.0"
+    "nodemon": "^3.0.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.22.10",
