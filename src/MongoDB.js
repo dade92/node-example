@@ -17,7 +17,7 @@ export const printDatabases = async () => {
 
 }
 
-async function listDatabases(client) {
+const listDatabases = async (client) => {
     const databasesList = await client.db().admin().listDatabases();
 
     console.log("Databases:");
