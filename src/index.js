@@ -2,6 +2,7 @@ import express, {json} from 'express';
 import {adaptBody, users} from "./Users.js";
 import {findUser} from './FindUser.js';
 import {retrieveGithubUsers} from './FetchGithubUsers.js';
+import {printDatabases} from "./MongoDB.js";
 
 const PORT = process.env.PORT || 8080;
 
@@ -42,6 +43,11 @@ app.get('/findUser/:id', (req, res) => {
         res.send(user);
     }
 });
+
+app.get('/databases', (req, res) => {
+    printDatabases()
+    res.sendStatus(204)
+})
 
 const notFound = (user) => user === undefined
 
