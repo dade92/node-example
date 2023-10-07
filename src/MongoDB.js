@@ -1,12 +1,10 @@
 import {MongoClient} from "mongodb";
 
+const uri = "mongodb://root:password@localhost:27017/test?authSource=admin";
 
-export const printDatabases = async () => {
+const client = new MongoClient(uri);
 
-    const uri = "mongodb://root:password@localhost:27017/test?authSource=admin";
-
-    const client = new MongoClient(uri);
-
+export const initConnection = async () => {
     try {
         await client.connect();
 
@@ -15,6 +13,19 @@ export const printDatabases = async () => {
         console.error(e);
     }
 
+}
+
+export const query = async (name) => {
+    var query = {name: name}
+
+    const result = await client.db('test').collection('mongocustomer').findOne(query);
+
+    if (result) {
+        console.log(`Found one user with name ${name}:`);
+        console.log(result);
+    } else {
+        console.log(`No users found`);
+    }
 }
 
 const listDatabases = async (client) => {
