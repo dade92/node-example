@@ -1,5 +1,5 @@
 import express, {json} from 'express';
-import {adaptBody, adaptBodyForDB, users} from "./Users.js";
+import {adaptBody, adaptBodyForDB, adaptResponse, users} from "./Users.js";
 import {findUser} from './FindUser.js';
 import {retrieveGithubUsers} from './FetchGithubUsers.js';
 import {initConnection, insert, query} from "./MongoDB.js";
@@ -23,6 +23,7 @@ app.get('/users', (req, res) => {
 
 app.post('/addUser', (req, res) => {
     users.push(adaptBody(req.body));
+
     return insert(adaptBodyForDB(req.body))
         .then(() => res.sendStatus(204))
         .catch(() => res.sendStatus(500));
@@ -50,7 +51,7 @@ app.get('/findUser', async (req, res) => {
     if (notFound(user)) {
         res.sendStatus(404);
     } else {
-        res.send(user);
+        res.send(adaptResponse(user));
     }
 });
 

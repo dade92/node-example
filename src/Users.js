@@ -16,26 +16,30 @@ export const adaptBodyForDB = ({name, email, age}) => {
     }
 }
 
+export const adaptResponse = ({_id, name, age}) => {
+    return {name: name, age: age}
+}
+
 
 export const users = [
     {
-      id: 1,
-      name: "John",
-      email: "john@gmail.com"
+        id: 1,
+        name: "John",
+        email: "john@gmail.com"
     },
     {
-      id: 2,
-      name: "Smith",
-      email: "smith@gmail.com"
+        id: 2,
+        name: "Smith",
+        email: "smith@gmail.com"
     },
     {
-      id: 3,
-      name: "Chris",
-      email: "chris@gmail.com"
+        id: 3,
+        name: "Chris",
+        email: "chris@gmail.com"
     },
     {
-      id: 4,
-      name: "Jack",
-      email: "jack@gmail.com"
+        id: 4,
+        name: "Jack",
+        email: "jack@gmail.com"
     }
-  ];
+];
