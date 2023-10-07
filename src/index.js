@@ -9,14 +9,6 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(json());
 
-app.get('/status', (request, response) => {
-    const status = {
-        'Status': 'Running'
-    };
-
-    response.send(status);
-});
-
 app.get('/users', (req, res) => {
     res.json(users);
 });
