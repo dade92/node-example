@@ -2,12 +2,14 @@ import express, {json} from 'express';
 import {adaptBody, adaptBodyForDB, adaptResponse, users} from "./Users.js";
 import {findUser} from './FindUser.js';
 import {retrieveGithubUsers} from './FetchGithubUsers.js';
-import {initConnection, insert, query} from "./MongoDB.js";
+import {CustomerRepository, initConnection} from "./MongoDB.js";
 
 const PORT = process.env.PORT || 8080;
 
 const app = express();
 app.use(json());
+
+const customerRepository = new CustomerRepository("localhost", "27017");
 
 app.get('/users', (req, res) => {
     res.json(users);
@@ -16,7 +18,7 @@ app.get('/users', (req, res) => {
 app.post('/addUser', (req, res) => {
     users.push(adaptBody(req.body));
 
-    return insert(adaptBodyForDB(req.body))
+    return customerRepository.insert(adaptBodyForDB(req.body))
         .then(() => res.sendStatus(204))
         .catch(() => res.sendStatus(500));
 });
@@ -38,7 +40,7 @@ app.get('/findUser/:id', (req, res) => {
 });
 
 app.get('/findUser', async (req, res) => {
-    let user = await query(req.query.name)
+    let user = await customerRepository.query(req.query.name)
 
     if (notFound(user)) {
         res.sendStatus(404);
@@ -50,7 +52,7 @@ app.get('/findUser', async (req, res) => {
 app.get('/databases', (req, res) => {
     initConnection();
 
-    query('Carlo')
+    // query('Carlo')
 
     res.sendStatus(204)
 })
