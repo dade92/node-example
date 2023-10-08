@@ -2,7 +2,7 @@ import express, {json} from 'express';
 import {adaptBody, adaptBodyForDB, adaptResponse, users} from "./Users.js";
 import {findUser} from './FindUser.js';
 import {retrieveGithubUsers} from './FetchGithubUsers.js';
-import {CustomerRepository, initConnection} from "./MongoDB.js";
+import {CustomerRepository} from "./MongoDB.js";
 
 const PORT = process.env.PORT || 8080;
 
@@ -48,14 +48,6 @@ app.get('/findUser', async (req, res) => {
         res.send(adaptResponse(user));
     }
 });
-
-app.get('/databases', (req, res) => {
-    initConnection();
-
-    // query('Carlo')
-
-    res.sendStatus(204)
-})
 
 const notFound = (user) => user === undefined
 
