@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "jest --passWithNoTests --silent --coverage",
-    "dev": "node .",
-    "start": "nodemon ./src/index.js"
+    "start": "STAGE=local nodemon ./src/index.js"
   },
   "keywords": [],
   "author": "",

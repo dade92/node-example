@@ -9,7 +9,16 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(json());
 
-const customerRepository = new CustomerRepository("localhost", "27017");
+let DB = '';
+
+if(process.env.STAGE === 'local') {
+    console.log('Running in local env');
+    DB = 'localhost';
+} else {
+    DB = 'db';
+}
+
+const customerRepository = new CustomerRepository(DB, "27017");
 
 app.get('/users', (req, res) => {
     res.json(users);
