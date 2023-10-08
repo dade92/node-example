@@ -10,6 +10,7 @@ const app = express();
 app.use(json());
 
 const customerRepository = new CustomerRepository("localhost", "27017");
+customerRepository.connect();
 
 app.get('/users', (req, res) => {
     res.json(users);
