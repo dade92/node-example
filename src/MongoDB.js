@@ -12,10 +12,6 @@ export class CustomerRepository {
     constructor(host, port) {
         const uri = `mongodb://root:password@${host}:${port}?authSource=admin`;
         this.mongoClient = new MongoClient(uri);
-    }
-
-    async connect() {
-        await this.mongoClient.connect();
         this.client = this.mongoClient.db('test').collection('mongocustomer');
     }
 
