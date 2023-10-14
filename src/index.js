@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(json());
 
-let DB = '';
+let DB;
 
 if(process.env.STAGE === 'local') {
     console.log('Running in local env');

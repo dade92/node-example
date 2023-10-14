@@ -1,11 +1,7 @@
 import fetch from 'node-fetch';
 
-export const retrieveGithubUsers = () => {
-    return fetchUsers()
-}
-
-export const fetchUsers = () => {
-    return fetch('https://api.github.com/users/dade92')
+export const retrieveGithubUsers = () =>
+    fetch('https://api.github.com/users/dade92')
         .then(response => {
             if (response.status === 200) {
                 return response.json();
@@ -15,5 +11,5 @@ export const fetchUsers = () => {
         })
         .catch(e => {
             console.log(e);
-        });
-}
+        })
+
