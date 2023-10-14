@@ -1,0 +1,34 @@
+services:
+  app:
+    image: davide92/node-example
+    container_name: app
+    depends_on:
+      - mongo
+    ports:
+      - "8080:8080"
+    restart:
+      always
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./local-env/database/db:/data/db
+      - ./local-env/database/dev.archive:/Databases/dev.archive
+      - ./local-env/database/production:/Databases/production
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    links:
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_SERVER: mongo
