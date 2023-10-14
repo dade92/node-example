@@ -1,31 +1,23 @@
 import express, {json} from 'express';
-import {adaptBody, users} from "./Users.js";
-import {findUser} from './FindUser.js';
+import {adaptResponse} from "./Users.js";
 import {retrieveGithubUsers} from './FetchGithubUsers.js';
+import {CustomerRepository} from "./MongoDB.js";
 
 const PORT = process.env.PORT || 8080;
 
 const app = express();
 app.use(json());
 
-app.get('/status', (request, response) => {
-    const status = {
-        'Status': 'Running'
-    };
+let DB;
 
-    response.send(status);
-});
+if (process.env.STAGE === 'local') {
+    console.log('Running in local env');
+    DB = 'localhost';
+} else {
+    DB = 'mongo';
+}
 
-app.get('/users', (req, res) => {
-    res.json(users);
-});
-
-app.post('/addUser', (req, res) => {
-    users.push(adaptBody(req.body));
-
-    return res.sendStatus(204);
-
-});
+const customerRepository = new CustomerRepository(DB, "27017");
 
 app.get('/githubUsers', async (req, res) => {
     retrieveGithubUsers()
@@ -33,17 +25,17 @@ app.get('/githubUsers', async (req, res) => {
         .catch(() => res.sendStatus(500))
 });
 
-app.get('/findUser/:id', (req, res) => {
-    let user = findUser(req.params.id, users);
+app.get('/findUser', async (req, res) => {
+    let user = await customerRepository.query(req.query.name)
 
     if (notFound(user)) {
         res.sendStatus(404);
     } else {
-        res.send(user);
+        res.send(adaptResponse(user));
     }
 });
 
-const notFound = (user) => user === undefined
+const notFound = (user) => user === null
 
 app.listen(PORT, () => {
     console.log("Server Listening on PORT:", PORT);
