@@ -15,7 +15,7 @@ if(process.env.STAGE === 'local') {
     console.log('Running in local env');
     DB = 'localhost';
 } else {
-    DB = 'db';
+    DB = 'mongo';
 }
 
 const customerRepository = new CustomerRepository(DB, "27017");
