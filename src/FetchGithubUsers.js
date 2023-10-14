@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
-export const retrieveGithubUsers = async () => {
-    return await fetchUsers()
+export const retrieveGithubUsers = () => {
+    return fetchUsers()
 }
 
 export const fetchUsers = () => {
