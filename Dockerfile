@@ -10,4 +10,4 @@ COPY ./src/*.js .
 
 EXPOSE 8080
 
-CMD [ "node", "index.js" ]
+CMD [ "STAGE=prod node", "index.js" ]
