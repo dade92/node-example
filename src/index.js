@@ -58,7 +58,7 @@ app.get('/findUser', async (req, res) => {
     }
 });
 
-const notFound = (user) => user === undefined
+const notFound = (user) => user === null
 
 app.listen(PORT, () => {
     console.log("Server Listening on PORT:", PORT);
