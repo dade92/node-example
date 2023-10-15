@@ -25,6 +25,15 @@ app.get('/githubUsers', async (req, res) => {
         .catch(() => res.sendStatus(500))
 });
 
+app.post('/addUser', async (req, res) => {
+   customerRepository.insert(req.body)
+       .then(() => res.sendStatus(204))
+       .catch(e => {
+           console.log(e);
+           res.sendStatus(500)
+       })
+});
+
 app.get('/findUser', async (req, res) => {
     let user = await customerRepository.query(req.query.name)
 
