@@ -23,10 +23,15 @@ export class CustomerRepository {
     }
 
     async insert(customer) {
-        await this.client.insertOne(customer, (err, result) => {
-            if (err) throw err;
-            console.log("1 document inserted");
-        })
+        const oldUser =  await this.query(customer.name)
+        if(oldUser === undefined) {
+            await this.client.insertOne(customer, (err, result) => {
+                if (err) throw err;
+                console.log("1 document inserted");
+            })
+        } else {
+            throw new Error("User already existing");
+        }
     }
 
 
