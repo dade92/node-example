@@ -35,13 +35,15 @@ app.post('/addUser', async (req, res) => {
 });
 
 app.get('/findUser', async (req, res) => {
-    let user = await customerRepository.query(req.query.name)
-
-    if (notFound(user)) {
-        res.sendStatus(404);
-    } else {
-        res.send(adaptResponse(user));
-    }
+    customerRepository.query(req.query.name).then(user => {
+        if (notFound(user)) {
+            res.sendStatus(404);
+        } else {
+            res.send(adaptResponse(user));
+        }
+    }).catch(e => {
+        console.log("Something went wrong trying to find user", e);
+    });
 });
 
 const notFound = (user) => user === null
