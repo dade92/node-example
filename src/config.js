@@ -4,17 +4,13 @@ import {CustomerRepository} from "./MongoDB.js";
 export const app = express();
 app.use(json());
 
-let DB;
-
-function initDB() {
+const initDBUrl = () => {
     if (process.env.STAGE === 'local') {
         console.log('Running in local env');
-        DB = 'localhost';
+        return 'localhost';
     } else {
-        DB = 'mongo';
+        return 'mongo';
     }
-}
+};
 
-initDB();
-
-export const customerRepository = new CustomerRepository(DB, "27017");
+export const customerRepository = new CustomerRepository(initDBUrl(), "27017");
