@@ -1,4 +1,6 @@
-GET {{app}}/findUser?name=Alfredo2
+GET {{app}}/findUser?name=Francesca
+Content-Type: application/json
+Accept: application/json
 
 ###
 
