@@ -1,0 +1,13 @@
+GET {{app}}/findUser?name=Alfredo2
+
+###
+
+POST {{app}}/addUser
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Alfredo2",
+  "email": "alfredocospito@gmail.com",
+  "age": 24
+}

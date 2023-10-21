@@ -24,7 +24,7 @@ export class CustomerRepository {
 
     async insert(customer) {
         const oldUser =  await this.query(customer.name)
-        if(oldUser === undefined) {
+        if(oldUser === null) {
             await this.client.insertOne(customer, (err, result) => {
                 if (err) throw err;
                 console.log("1 document inserted");
