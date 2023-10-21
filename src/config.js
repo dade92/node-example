@@ -13,4 +13,4 @@ const initDBUrl = () => {
     }
 };
 
-export const customerRepository = new CustomerRepository(initDBUrl(), "27017");
+export const customerRepository = new CustomerRepository(initDBUrl(), "27017", "test");

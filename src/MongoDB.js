@@ -2,10 +2,10 @@ import {MongoClient} from "mongodb";
 
 export class CustomerRepository {
 
-    constructor(host, port) {
+    constructor(host, port, db) {
         const uri = `mongodb://root:password@${host}:${port}?authSource=admin`;
         this.mongoClient = new MongoClient(uri);
-        this.client = this.mongoClient.db('test').collection('mongocustomer');
+        this.client = this.mongoClient.db(db).collection('mongocustomer');
     }
 
     async query(name) {
