@@ -23,6 +23,13 @@ app.post('/addUser', async (req, res) => {
        })
 });
 
+app.post('/arduino/test', async (req, res) => {
+    console.log("Number sent by arduino is:" + req.body.number);
+    res.send({
+        yourNumber: req.body.number
+    });
+});
+
 app.get('/findUser', async (req, res) => {
     customerRepository.query(req.query.name).then(user => {
         if (notFound(user)) {

@@ -19,3 +19,13 @@ Accept: application/json
   "email": "alfredocospito@gmail.com",
   "age": 24
 }
+
+### Arduino test request
+
+POST {{app}}/arduino/test
+Content-Type: application/json
+Accept: application/json
+
+{
+  "number": 789
+}
