@@ -10,6 +10,10 @@ app.get('/githubUsers', async (req, res) => {
         .catch(() => res.sendStatus(500))
 });
 
+app.get('/test', async (req, res) => {
+    res.send({message: "Hey!"})
+});
+
 app.post('/addUser', async (req, res) => {
    customerRepository.insert(req.body)
        .then(() => res.sendStatus(204))

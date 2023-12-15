@@ -4,6 +4,12 @@ Accept: application/json
 
 ###
 
+GET {{app}}/test
+Content-Type: application/json
+Accept: application/json
+
+###
+
 POST {{app}}/addUser
 Content-Type: application/json
 Accept: application/json
