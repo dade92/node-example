@@ -25,6 +25,8 @@ app.post('/addUser', async (req, res) => {
 
 app.post('/arduino/test', async (req, res) => {
     console.log("Number sent by arduino is:" + req.body.number);
+    await new Promise(r => setTimeout(r, 3000));
+    console.log('Sending response now!');
     res.send({
         yourNumber: req.body.number
     });
